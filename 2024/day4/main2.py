@@ -1,4 +1,5 @@
-file = "input2.txt"
+#file = "input2.txt"
+file = "input"
 
 with open(file, 'r') as file:
     lines = file.readlines()
@@ -22,15 +23,11 @@ def check(char1, char2):
     if (char1 != 'M' and char1 != 'S') or (char2 != 'M' and char2 != 'S'):
         return False
     if not((char1 == 'M' and char2 == 'S') or (char1 == 'S' and char2 == 'M')):
-        print("here")
         return False
     return True
 
 
 def is_valid(i: int, j: int):
-    if i <= 0 or j <= 0 or i >= (m-1) or j >= (n-1):
-        return False
-    
     # check that top left and bottom right aren't equal
     tl_i, tl_j = (i-1), (j-1)
     br_i, br_j = (i+1), (j+1)
@@ -43,8 +40,8 @@ def is_valid(i: int, j: int):
     return check(tl_char, br_char) and check(bl_char, tr_char)
 
 total = 0
-for i in range(m):
-    for j in range(n):
+for i in range(1, m-1):
+    for j in range(1, n-1):
         curr_char = board[i][j]
         # skip non x
         if curr_char != 'A':
