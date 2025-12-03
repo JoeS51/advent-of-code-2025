@@ -1,8 +1,7 @@
 use std::fs;
 
 fn main() {
-    // let file_result = fs::read_to_string("sample-input").unwrap();
-    let file_result = fs::read_to_string("actual-input").unwrap();
+    let file_result = fs::read_to_string("inputs/day1-actual").unwrap();
     let mut curr_pos = 50;
     let mut total_zeroes = 0;
     for line in file_result.lines() {
@@ -16,15 +15,27 @@ fn main() {
         }
         let step: i32 = step.parse().expect("not a num");
         
-        curr_pos += (direction * step);
-        curr_pos %= 100;
-        
-        if curr_pos == 0 {
-            total_zeroes += 1;
+        let prev_pos = curr_pos;
+        curr_pos += direction * step;
+
+        if curr_pos < prev_pos {
+            for i in (curr_pos..prev_pos) {
+                let m = i%100;
+                if i % 100 == 0 {
+                    total_zeroes += 1
+                }
+            }
+        } else {
+            for i in prev_pos+1..=curr_pos {
+                let m = i%100;
+                if i % 100 == 0 {
+                    total_zeroes += 1
+                }
+            }
         }
 
-        println!("{line}");
-        println!("{curr_pos}");
+        curr_pos %= 100;
+
     }
-    println!("{total_zeroes}");
+    println!("total zeroes is {total_zeroes}");
 }
