@@ -7,7 +7,7 @@ const DIRS: [(isize, isize); 8] = [
 fn main() {
     // let file_result = fs::read_to_string("inputs/day4-sample").unwrap();
     let file_result = fs::read_to_string("inputs/day4-actual").unwrap();
-    let grid: Vec<Vec<char>> = file_result
+    let mut grid: Vec<Vec<char>> = file_result
         .lines()
         .map(|line| line.chars().collect())
         .collect();
@@ -16,13 +16,25 @@ fn main() {
     let m = grid.len();
     let n = grid[0].len();
 
+    let mut new_grid: Vec<Vec<char>> = vec![vec!['.'; n]; m];
+    let mut changed = 1;
     // println!("{:?}", grid);
-    for i in 0..m {
-        for j in 0..n {
-            if grid[i][j] != '.' && isValid(i, j, m, n, &grid) {
-                ans += 1;
+    while changed != 0 {
+        changed = 0;
+        new_grid = vec![vec!['.'; n]; m];
+
+        for i in 0..m {
+            for j in 0..n {
+                if grid[i][j] != '.' && isValid(i, j, m, n, &grid) {
+                    ans += 1;
+                    changed += 1;
+                } else if grid[i][j] == '@' {
+                    new_grid[i][j] = '@';
+                }
             }
         }
+        println!("{:?}", new_grid);
+        grid = new_grid.clone();
     }
 
     println!("Answer is: {ans}");
