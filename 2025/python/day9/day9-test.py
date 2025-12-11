@@ -98,3 +98,6 @@ for i in range(len(arr)):
 
 print(largest_area)
 
+# potential solution:
+# add nested for loop to go up and down to see if 'X' is valid
+# only need to check permiter is filled with red and green not whole box
