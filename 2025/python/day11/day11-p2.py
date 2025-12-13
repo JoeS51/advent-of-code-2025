@@ -24,10 +24,8 @@ def dfs(curr_node, dac, fft):
     sum = 0
     if curr_node in adj_map:
         for child in adj_map[curr_node]:
-            if child == "fft":
-                fft = True
-            elif child == "dac":
-                dac = True
+            next_fft = fft or (child == "fft")
+            next_dac = dac or (child == "dac")
             sum += dfs(child, dac, fft)
     return sum
 
